@@ -25,7 +25,7 @@ RUN git checkout -b develop origin/develop
 
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
-RUN pip3 install numba jupyter
+RUN pip3 install numba jupyter cmocean
 
 ####run notebook
 WORKDIR /nextsim-workshop
