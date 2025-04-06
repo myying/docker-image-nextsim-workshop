@@ -5,15 +5,9 @@ RUN git clone https://github.com/nextsimhub/nextsimdg.git /nextsimdg
 
 WORKDIR /nextsimdg/build
 
-ARG mpi=OFF
-ARG xios=OFF
-ARG jobs=1
-
 RUN . /opt/spack-environment/activate.sh && \
-    cmake -DENABLE_MPI=$mpi -DENABLE_XIOS=$xios -Dxios_DIR=/xios .. && \
-    make -j $jobs
-
-RUN echo '. /opt/spack-environment/activate.sh' > /nextsim.src
+    cmake -DWITH_THREADS=ON -DCMAKE_BUILD_TYPE=Release -DENABLE_MPI=OFF -DENABLE_XIOS=OFF -Dxios_DIR=/xios .. && \
+    make -j 1
 
 # Install Python and create pyenv
 RUN apt-get update && \
@@ -32,8 +26,6 @@ RUN git checkout -b develop origin/develop
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 RUN pip3 install numba jupyter
-
-ENV PYTHONPATH=/NEDAS:$PYTHONPATH
 
 ####run notebook
 WORKDIR /nextsim-workshop
