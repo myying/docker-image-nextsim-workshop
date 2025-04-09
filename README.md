@@ -7,6 +7,7 @@ The docker image is automatically generated with repo2docker following [2i2c tut
 Step 1: download the notebooks and test data from /summer/sasip/nextsim-workshop to your local disk
 
 Step 2: Build the docker image: `docker build -t nextsim-workshop:latest .`
+Note: to make sure the generated files in shared volume will have correct permission, add the following args: `--build-arg USER_ID=xxx --build-arg USER_NAME=xxx --build-arg GROUP_ID=xxx`
 
 Step 3: Start the container: `docker run --rm -v nextsim-workshop:/nextsim-workshop -p 8888:8888 nextsim-workshop:latest`
 
